@@ -44,6 +44,33 @@
 				<?php endwhile; ?>
 			</div>
 
+			<div class= "row tomatoes"> 
+	<div class="col-md-12"> 
+	<?php 
+
+	/*Uses ones rotten tomatoes key to obtain data from the site regarding the films*/
+	$json = file_get_contents('http://api.rottentomatoes.com/api/public/v1.0/movies/' . $rtID .'.json?apikey=q2rhkz62np7gkn6abcf83bkg'); 
+	$films = json_decode($json);
+
+	// Extracting critic's and audience's score from the data
+	$criticsScore = $films->ratings->critics_score;
+	$audienceScore = $films->ratings->audience_score;
+
+		// prints only the critics and audience's score
+		
+		echo "<br></br>";
+		echo "Audience's Score:";
+		echo $audienceScore;
+		 /*echo '<pre>'; 
+	 	print_r($films); 
+		echo '</pre>';*/ 
+
+	 ?>
+	 <!-- Critic's and Audience's scores progress bars -->
+	<?php include('partials/progress-bars.php');?>
+						
+	</div>
+
 
 						
 	</div>
