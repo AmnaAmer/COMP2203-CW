@@ -24,8 +24,9 @@
 		    }
 		
 		  ?>
-			
 
+		  <!-- carousel included within a partial-->
+		   <?php include('partials/carousel.php');?>
 
 			<!--Welcome Message--> 
 			<div id="course-list" class="row" >
