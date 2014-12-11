@@ -49,6 +49,60 @@
 	</div>
 </div>
 
+<div style="font-size: 14px; font-weight:bold;">
+			<!-- Obtains up to 10 reviews from the database-->
+			<?php $reviews = $db->query('SELECT * FROM review WHERE film_id= '.$db->real_escape_string($_GET['id']).' LIMIT 10'); ?>
+				<h3>Current Thoughts</h3>
+				<table class="table table-striped">
+					<thead>
+						<tr>
+							<!-- Heading included within the review table -->
+							<th>Reviewer</th>
+							<th>Thoughts</th>
+							<th>Liked or Disliked</th>
+						</tr>
+					</thead>
+					<body>
+						<!-- Fetches the Reviews from database -->
+						<?php while($review = $reviews->fetch_object("Review")): ?>
+							<tr>
+								<!--Specifies which data I want from the data-->
+								<td><?=$review->reviewer?></td>
+								<td><?=$review->comment?></td>
+								<td>
+									<?php
+									// provide a liked or disliked symbol depending on the results
+									if($review->liked == 1){
+									echo ("<span class=' glyphicon glyphicon-ok'></span>");
+									} else{
+										echo ("<span class='glyphicon glyphicon-remove'></span>");
+									}?>
+
+								</td>
+							</tr>
+						<?php endwhile; ?>
+					</tbody>
+				</table>
+			</div>
+
+<div class="row">
+			<!--Adding a review form-->
+			<h3>Share your opinion!</h3>
+
+			<!--User can enter thier personal details and thoughts regarding a specific film -->
+			<form action="process-review.php" method="post">
+			<input type="hidden" name="film_id" value="<?=$_GET['id']?>">
+			Name: <input type="text" name="reviewer">
+			Thoughts: <input type="text" name="comment">
+			Like?:<input type="checkbox" name="like" value= "1">
+			Dislike?:<input type="checkbox" name="like" value= "0">
+			<input type="submit" value="Submit">
+			</form>
+
+		</div>
+
+	</div>
+
 	</div>
 		<?php
 		}
